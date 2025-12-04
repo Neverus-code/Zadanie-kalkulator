@@ -186,7 +186,7 @@ std::vector<int> add(int base, std::vector<int> value1, std::vector<int> value2,
         bottom = value2;
     }
 
-    std::vector<int> carry(iter+1, 0);
+    std::vector<int> carry(iter, 0);
 
     for(int i = iter-1; i >= 0;i--) {
         int sum = top[i] + bottom[i] + carry[i];
@@ -196,9 +196,7 @@ std::vector<int> add(int base, std::vector<int> value1, std::vector<int> value2,
             if(i > 0) {
                 carry[i-1] += sum / base;
             } else {
-                temp.push_back(sum / base);
-                // carry[iter-1] += sum / base;
-
+                temp.push_back(sum/base);
             }
 
         }else {
@@ -348,9 +346,7 @@ void putTable(int x, int y, std::vector<char> col0,std::vector<char> col1,std::v
     int temp = carry.size()-1;
     for(int i=0; i < carry.size();i++) {
         if(carry[temp] != '0') {
-            ScreenBuffer[(((y)*width)+x-i*2)] = carry[temp]; 
-            
-            
+            ScreenBuffer[(((y)*width)+x-i*2)] = carry[temp];    
         }
         temp--;
     }
