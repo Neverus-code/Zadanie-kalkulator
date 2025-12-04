@@ -186,7 +186,7 @@ std::vector<int> add(int base, std::vector<int> value1, std::vector<int> value2,
         bottom = value2;
     }
 
-    std::vector<int> carry(iter, 0);
+    std::vector<int> carry(iter+1, 0);
 
     for(int i = iter-1; i >= 0;i--) {
         int sum = top[i] + bottom[i] + carry[i];
@@ -197,11 +197,13 @@ std::vector<int> add(int base, std::vector<int> value1, std::vector<int> value2,
                 carry[i-1] += sum / base;
             } else {
                 temp.push_back(sum / base);
+                // carry[iter-1] += sum / base;
+
             }
 
         }else {
-        temp.push_back(sum);
-     }
+            temp.push_back(sum);
+        }
 
     }
     
@@ -330,7 +332,8 @@ std::vector<char> deleteFirstZero(std::vector<char> value) {
 /// @param symbol Symbol działania
 void putTable(int x, int y, std::vector<char> col0,std::vector<char> col1,std::vector<char> col2,std::vector<char> col3, char symbol) {
 
-    std::vector<char> carry  = deleteFirstZero(col0);
+    // std::vector<char> carry  = deleteFirstZero(col0);
+    std::vector<char> carry  = col0;
     std::vector<char> top    = deleteFirstZero(col1);
     std::vector<char> bottom = deleteFirstZero(col2);
     std::vector<char> output = deleteFirstZero(col3);
@@ -346,6 +349,8 @@ void putTable(int x, int y, std::vector<char> col0,std::vector<char> col1,std::v
     for(int i=0; i < carry.size();i++) {
         if(carry[temp] != '0') {
             ScreenBuffer[(((y)*width)+x-i*2)] = carry[temp]; 
+            
+            
         }
         temp--;
     }
@@ -598,7 +603,7 @@ void calculatorAdd(MenuState* state) {
         break;
     }
     putBaseStatus();
-    
+
     draw();
 
     for(int i = 0; i < inpt.size()+44;i++) {
